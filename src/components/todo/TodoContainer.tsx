@@ -3,11 +3,21 @@ import { useAppSelector } from "@/redux/hook";
 import  { AddTodoModal } from "./AddTodoModal";
 import TodoCard from "./TodoCard";
 import {  TodoFilter } from "./TodoFilter";
+import { useGetTodosQuery } from "@/redux/api/api";
+import { error } from "console";
 
 const TodoContainer = () => {
-    const { todos } = useAppSelector((state) => state.todos);
+    // const { todos } = useAppSelector((state) => state.todos);
 //   console.log(todos)
 
+const {data: todos, isError, isLoading} = useGetTodosQuery(undefined);
+console.log(todos)
+if (isLoading) {
+   return <p>Loading....</p>
+}
+if (isError) {
+    return <p>Error 404 ...</p>
+}
 
     return (
         <div>
@@ -22,7 +32,7 @@ const TodoContainer = () => {
            </div> */}
            <div className="bg-white  rounded-lg space-y-3 p-5 w-full h-full">
             {
-                todos.map((item, index) => (
+                todos?.todos?.map((item, index) => (
                     <TodoCard key={index} {...item}  />
                 ))
             }

@@ -3,32 +3,32 @@ import { Button } from "../ui/button";
 import { deleteTodo, toggleTodo } from "@/redux/feauters/todoSlice";
 
 interface TTodoCardProps {
-  id: string,
-  title: string,
-  description: string,
-  isCompleted?: boolean,
+  id: number,
+  userId:number,
+  todo: string,
+  isCompleted: boolean,
 }
 
-const TodoCard = ({ title, description, id, isCompleted }: TTodoCardProps) => {
+const TodoCard = ({ todo, userId, id, isCompleted }: TTodoCardProps) => {
   const dispatch = useAppDispatch();
 
-  const toggleState = () => {
-    dispatch(toggleTodo(id));
+  // const toggleState = () => {
+  //   dispatch(toggleTodo(id));
     
-  };
+  // };
 
 
 
   return (
     <div className="flex items-center justify-between bg-white p-3 rounded-md border">
       <input
-        onChange={toggleState}
+        // onChange={toggleState}
         type="checkbox"
         name="complete"
         id={`complete-${id}`}
         checked={isCompleted} // Controlled checkbox
       />
-      <h1>{title}</h1>
+      <h1>{todo}</h1>
       <div>
         {isCompleted ? (
           <p className="text-green-500">Done</p>
@@ -36,7 +36,7 @@ const TodoCard = ({ title, description, id, isCompleted }: TTodoCardProps) => {
           <p className="text-red-500">Pending</p>
         )}
       </div>
-      <p>{description}</p>
+      <p>{userId}</p>
 
       <div className="flex gap-2">
         <Button
